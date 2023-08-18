@@ -1,7 +1,7 @@
 package com.example.controllers;
 
-import com.example.domain.models.Article;
-import com.example.service.ArticleService;
+import com.example.domain.models.Author;
+import com.example.service.AuthorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,40 +13,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
-@RequestMapping("/api/articles")
+@RequestMapping("/authors")
 @RequiredArgsConstructor
-class ArticleController {
-    private final ArticleService articleService;
+public class AuthorController {
+    private final AuthorService authorService;
 
     @GetMapping("/all")
-    Page<Article> all(Pageable pageable) {
-        return articleService.findAll(pageable);
-    }
-
-    @GetMapping("/all-ids")
-    Page<String> allIds(Pageable pageable) {
-        return articleService.getIds(pageable);
-    }
-
-    @GetMapping("/author/{id}")
-    Iterable<Article> byAuthor(@PathVariable("id") String id) {
-        return articleService.findByAuthorId(id);
+    Page<Author> getAll(Pageable pageable) {
+        return authorService.findAll(pageable);
     }
 
     @GetMapping("/search/{q}")
-    Iterable<Article> search(@PathVariable("q") String query) {
-        return articleService.search(query);
+    Iterable<Author> search(@PathVariable("q") String query) {
+        return authorService.search(query);
     }
 
     @PostMapping("/save")
-    Article save(@RequestParam("article") Article article) {
-        return articleService.save(article);
+    Author save(@RequestParam("author") Author author) {
+        return authorService.save(author);
     }
 
     @DeleteMapping("/delete/{id}")
     void delete(@PathVariable("id") String id) {
-        articleService.deleteById(id);
+        authorService.deleteById(id);
     }
 }

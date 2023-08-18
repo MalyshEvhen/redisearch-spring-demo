@@ -4,5 +4,7 @@ import com.example.domain.models.Article;
 import com.redis.om.spring.repository.RedisDocumentRepository;
 
 public interface ArticleRepository extends RedisDocumentRepository<Article, String> {
-    Iterable<Article> findByAuthorId(String id);
+    Iterable<Article> findByAuthor_Id(String id);
+
+    Iterable<Article> search(String text);
 }

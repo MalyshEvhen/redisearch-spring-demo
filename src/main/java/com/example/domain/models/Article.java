@@ -48,4 +48,8 @@ public class Article {
 
     @LastModifiedDate
     private Date lastModifiedDate;
+
+    public void addTag(String tag) {
+        this.tags.add(tag);
+    }
 }

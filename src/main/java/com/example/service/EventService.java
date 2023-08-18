@@ -8,4 +8,6 @@ import java.util.List;
 public interface EventService {
     List<Event> searchByBeginDateBetween(LocalDateTime start, LocalDateTime end);
     Iterable<Event> search(String text);
+    Iterable<Event> findByTags(String[] tags);
+    Event save(Event event);
 }

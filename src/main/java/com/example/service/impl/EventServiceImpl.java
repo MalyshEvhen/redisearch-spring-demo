@@ -1,7 +1,7 @@
 package com.example.service.impl;
 
 import com.example.domain.models.Event;
-import com.example.domain.Event$;
+import com.example.domain.models.Event$;
 import com.example.repositories.EventRepository;
 import com.example.service.EventService;
 import com.redis.om.spring.search.stream.EntityStream;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
 
-    private final EventRepository repository;
+    private final EventRepository eventRepository;
 
     private final EntityStream entityStream;
 
@@ -30,6 +30,18 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public Iterable<Event> search(String text) {
-        return repository.search(text);
+        return eventRepository.search(text);
+    }
+
+    @Override
+    public List<Event> findByTags(String... tags) {
+        return entityStream.of(Event.class)
+                .filter(Event$.TAGS.in(tags))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Event save(Event event) {
+        return eventRepository.save(event);
     }
 }

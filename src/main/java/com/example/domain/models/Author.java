@@ -1,6 +1,7 @@
 package com.example.domain.models;
 
 import com.redis.om.spring.annotations.Document;
+import com.redis.om.spring.annotations.Searchable;
 import com.redis.om.spring.annotations.TagIndexed;
 import com.redis.om.spring.annotations.TextIndexed;
 import lombok.AccessLevel;
@@ -26,17 +27,18 @@ public class Author {
     private String id;
 
     @NonNull
-    @TextIndexed
+    @Searchable
     private String firstName;
 
     @NonNull
-    @TextIndexed
+    @Searchable
     private String lastName;
 
     @NonNull
     @TagIndexed
     private String email;
 
+    @NonNull
     @TextIndexed
     private String bio;
 

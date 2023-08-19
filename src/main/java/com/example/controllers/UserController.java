@@ -6,13 +6,7 @@ import com.example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -21,7 +15,8 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/all")
-    Page<User> getAll(Pageable pageable) {
+    Page<User> getAll(@RequestParam("size") int size, @RequestParam("page") int page) {
+        var pageable = Pageable.ofSize(size).withPage(page);
         return userService.findAll(pageable);
     }
 
@@ -31,7 +26,7 @@ public class UserController {
     }
 
     @PostMapping("/save")
-    User save(@RequestParam("user") UserRegistration user) {
+    User save(@RequestBody UserRegistration user) {
         return userService.save(user);
     }
 

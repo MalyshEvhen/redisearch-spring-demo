@@ -11,13 +11,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,9 +32,9 @@ public class EventController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = Event.class)))})
     @GetMapping("/between")
-    List<Event> byNumberOfEmployees(@RequestParam("start")
+    List<Event> byStartAndEndOf(@RequestParam("start")
                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
-                                    @RequestParam("end")
+                                @RequestParam("end")
                                     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
         return eventService.searchByBeginDateBetween(start, end);
     }
@@ -56,6 +50,19 @@ public class EventController {
     @GetMapping("/search/{q}")
     Iterable<Event> search(@PathVariable("q") String q) {
         return eventService.search(q);
+    }
+
+    @Operation(summary = "Full text ALTERNATIVE search by part of event title")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved the collection of events",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Event.class)))})
+    @GetMapping("/search/{q}")
+    Iterable<Event> alternativeSearch(@PathVariable("q") String q) {
+        return eventService.altSearch(q);
     }
 
     @Operation(summary = "Find events by array of tags")
@@ -81,7 +88,7 @@ public class EventController {
                             schema = @Schema(implementation = Event.class)))})
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    Event save(@RequestParam("event") EventPostRequest event) {
+    Event save(@RequestBody EventPostRequest event) {
         return eventService.save(event);
     }
 }

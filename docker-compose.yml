@@ -2,9 +2,10 @@ version: '3.9'
 
 services:
   redis:
-    image: 'redislabs/redismod'
+    image: 'redis/redis-stack:7.2.0-v0'
     ports:
       - '6379:6379'
+      - '8001:8001'
     volumes:
       - ./data:/data
     deploy:

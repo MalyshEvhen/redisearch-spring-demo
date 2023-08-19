@@ -30,9 +30,9 @@ import static com.example.util.FakeDataGenerator.createUser;
                 description = "Application create for demonstration purposes.",
                 license = @License(
                         name = "Apache 2.0",
-                        url = "http://example.com/licence"),
+                        url = "https://example.com/licence"),
                 contact = @Contact(
-                        url = "http://example.com/contacts",
+                        url = "https://example.com/contacts",
                         name = "Evhen Malysh",
                         email = "email@example.com")))
 @SpringBootApplication

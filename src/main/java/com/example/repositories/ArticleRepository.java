@@ -2,9 +2,10 @@ package com.example.repositories;
 
 import com.example.domain.models.Article;
 import com.redis.om.spring.repository.RedisDocumentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface ArticleRepository extends RedisDocumentRepository<Article, String> {
-    Iterable<Article> findByAuthor_Id(String id);
-
+    Page<Article> findByAuthor_Id(String id, Pageable pageable);
     Iterable<Article> search(String text);
 }

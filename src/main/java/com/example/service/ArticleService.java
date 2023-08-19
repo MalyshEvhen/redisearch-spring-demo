@@ -10,7 +10,7 @@ public interface ArticleService {
 
     Page<String> getIds(Pageable pageable);
 
-    Iterable<Article> findByAuthorId(String id);
+    Page<Article> findByAuthorId(String id, Pageable pageable);
 
     Iterable<Article> search(String query);
 

@@ -29,8 +29,8 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Iterable<Article> findByAuthorId(String id) {
-        return articleRepository.findByAuthor_Id(id);
+    public Page<Article> findByAuthorId(String id, Pageable pageable) {
+        return articleRepository.findByAuthor_Id(id, pageable);
     }
 
     @Override

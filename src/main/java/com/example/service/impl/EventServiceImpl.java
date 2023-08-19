@@ -56,4 +56,9 @@ public class EventServiceImpl implements EventService {
 
         return eventRepository.save(eventToSave);
     }
+
+    @Override
+    public Iterable<Event> altSearch(String q) {
+        return null;
+    }
 }

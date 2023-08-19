@@ -11,4 +11,5 @@ public interface EventService {
     Iterable<Event> search(String text);
     Iterable<Event> findByTags(String[] tags);
     Event save(EventPostRequest event);
+    Iterable<Event> altSearch(String q);
 }

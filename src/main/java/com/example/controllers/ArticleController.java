@@ -12,14 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
@@ -51,8 +44,11 @@ class ArticleController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = Article.class)))})
     @GetMapping("/by-author-id")
-    Iterable<Article> byAuthor(@RequestParam("authorId") String id) {
-        return articleService.findByAuthorId(id);
+    Page<Article> byAuthor(@RequestParam("authorId") String id,
+                           @RequestParam("size") int size,
+                           @RequestParam("page") int page) {
+        var pageable = Pageable.ofSize(size).withPage(page);
+        return articleService.findByAuthorId(id, pageable);
     }
 
     @Operation(summary = "Get a list of all articles by part of article title")
@@ -79,7 +75,7 @@ class ArticleController {
                             schema = @Schema(implementation = Article.class)))})
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
-    Article save(@RequestParam("article") ArticlePostRequest article) {
+    Article save(@RequestBody ArticlePostRequest article) {
         return articleService.save(article);
     }
 

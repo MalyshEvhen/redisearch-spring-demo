@@ -3,21 +3,14 @@ package com.example.domain.models;
 import com.redis.om.spring.annotations.Document;
 import com.redis.om.spring.annotations.Indexed;
 import com.redis.om.spring.annotations.Searchable;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -41,8 +34,7 @@ public class Event {
     @Indexed
     private Set<String> tags = new HashSet<>();
 
-    @Indexed
-    private List<User> artists = new ArrayList<>();
+    Set<User> artists = new HashSet<>();
 
     @NonNull
     @Indexed

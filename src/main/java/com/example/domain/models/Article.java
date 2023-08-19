@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.Reference;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -26,6 +25,7 @@ import java.util.Set;
 public class Article {
 
     @Id
+    @Indexed
     private String id;
 
     @NonNull
@@ -33,15 +33,14 @@ public class Article {
     private String title;
 
     @NonNull
-    @Searchable
     private String content;
 
     @Indexed
     private Set<String> tags = new HashSet<>();
 
     @NonNull
-    @Reference
-    private Author author;
+    @Indexed
+    private User author;
 
     @CreatedDate
     private Date createdDate;

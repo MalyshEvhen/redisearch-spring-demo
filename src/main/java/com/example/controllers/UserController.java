@@ -1,7 +1,8 @@
 package com.example.controllers;
 
-import com.example.domain.models.Author;
-import com.example.service.AuthorService;
+import com.example.domain.dto.UserRegistration;
+import com.example.domain.models.User;
+import com.example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,28 +15,28 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/authors")
+@RequestMapping("/users")
 @RequiredArgsConstructor
-public class AuthorController {
-    private final AuthorService authorService;
+public class UserController {
+    private final UserService userService;
 
     @GetMapping("/all")
-    Page<Author> getAll(Pageable pageable) {
-        return authorService.findAll(pageable);
+    Page<User> getAll(Pageable pageable) {
+        return userService.findAll(pageable);
     }
 
     @GetMapping("/search/{q}")
-    Iterable<Author> search(@PathVariable("q") String query) {
-        return authorService.search(query);
+    Iterable<User> search(@PathVariable("q") String query) {
+        return userService.search(query);
     }
 
     @PostMapping("/save")
-    Author save(@RequestParam("author") Author author) {
-        return authorService.save(author);
+    User save(@RequestParam("user") UserRegistration user) {
+        return userService.save(user);
     }
 
     @DeleteMapping("/delete/{id}")
     void delete(@PathVariable("id") String id) {
-        authorService.deleteById(id);
+        userService.deleteById(id);
     }
 }

@@ -3,6 +3,7 @@ package com.example.domain.models;
 import com.redis.om.spring.annotations.Document;
 import com.redis.om.spring.annotations.Indexed;
 import com.redis.om.spring.annotations.Searchable;
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,20 +12,23 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.annotation.Reference;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor(staticName = "of")
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Document
 public class Event {
+
     @Id
+    @Indexed
     private String id;
 
     @NonNull
@@ -32,15 +36,13 @@ public class Event {
     private String title;
 
     @NonNull
-    @Searchable
     private String content;
 
     @Indexed
     private Set<String> tags = new HashSet<>();
 
     @Indexed
-    @Reference
-    private Set<Artist> artists = new HashSet<>();
+    private List<User> artists = new ArrayList<>();
 
     @NonNull
     @Indexed
@@ -56,8 +58,8 @@ public class Event {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public void addArtist(Artist artist) {
-        this.artists.add(artist);
+    public void addUser(User user) {
+        this.artists.add(user);
     }
 
     public void addTag(String tag) {

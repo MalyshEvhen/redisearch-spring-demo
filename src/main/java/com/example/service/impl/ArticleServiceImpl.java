@@ -1,8 +1,12 @@
 package com.example.service.impl;
 
+import com.example.domain.dto.ArticlePostRequest;
 import com.example.domain.models.Article;
+import com.example.domain.models.User;
+import com.example.domain.models.User$;
 import com.example.repositories.ArticleRepository;
 import com.example.service.ArticleService;
+import com.redis.om.spring.search.stream.EntityStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +16,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
     private final ArticleRepository articleRepository;
+    private final EntityStream entityStream;
 
     @Override
     public Page<Article> findAll(Pageable pageable) {
@@ -34,8 +39,14 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public Article save(Article article) {
-        return articleRepository.save(article);
+    public Article save(ArticlePostRequest article) {
+        var author = entityStream.of(User.class)
+                .filter(User$.ID.eq(article.authorId()))
+                .findAny()
+                .orElseThrow();
+        var articleToSave = Article.of(article.title(), article.content(), author);
+
+        return articleRepository.save(articleToSave);
     }
 
     @Override

@@ -1,8 +1,7 @@
 package com.example.util;
 
 import com.example.domain.models.Article;
-import com.example.domain.models.Artist;
-import com.example.domain.models.Author;
+import com.example.domain.models.User;
 import com.example.domain.models.Event;
 import com.github.javafaker.Faker;
 
@@ -14,25 +13,21 @@ import java.util.concurrent.ThreadLocalRandom;
 public class FakeDataGenerator {
     private static final Faker faker = new Faker();
 
-    public static Author createAuthor() {
+    public static User createUser(User.Role role) {
         var firstname = getFirstname();
         var lastname = getLastname();
         var email = getEmail();
         var bio = getRandomText();
-        return Author.of(firstname, lastname, email, bio);
+        User user = User.of(firstname, lastname, email, bio);
+        user.addRole(role);
+
+        return user;
     }
 
-    public static Artist createArtist() {
-        var firstname = getFirstname();
-        var lastname = getLastname();
-        var bio = getRandomText();
-        return Artist.of(firstname, lastname, bio);
-    }
-
-    public static Article createArticle(Author author) {
+    public static Article createArticle(User user) {
         var title = getTitle();
         var content = getRandomText();
-        var article = Article.of(title, content, author);
+        var article = Article.of(title, content, user);
 
         int counter = ThreadLocalRandom.current().nextInt(5);
         while (counter >= 0) {
@@ -43,7 +38,7 @@ public class FakeDataGenerator {
         return article;
     }
 
-    public static Event createEvent(Set<Artist> artists) {
+    public static Event createEvent(Set<User> artists) {
         var title = getTitle();
         var content = getRandomText();
         var begin = getFutureDateTime(LocalDateTime.now());
@@ -56,7 +51,7 @@ public class FakeDataGenerator {
             event.addTag(tag);
             counter--;
         }
-        artists.forEach(event::addArtist);
+        artists.forEach(event::addUser);
         return event;
     }
 

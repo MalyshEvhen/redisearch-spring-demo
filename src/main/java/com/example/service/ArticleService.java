@@ -1,5 +1,6 @@
 package com.example.service;
 
+import com.example.domain.dto.ArticlePostRequest;
 import com.example.domain.models.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -13,7 +14,7 @@ public interface ArticleService {
 
     Iterable<Article> search(String query);
 
-    Article save(Article article);
+    Article save(ArticlePostRequest article);
 
     void deleteById(String id);
 }

@@ -1,17 +1,7 @@
 package com.example.domain.models;
 
-import com.redis.om.spring.annotations.Document;
-import com.redis.om.spring.annotations.Indexed;
-import com.redis.om.spring.annotations.Searchable;
-import com.redis.om.spring.annotations.TagIndexed;
-import com.redis.om.spring.annotations.TextIndexed;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
-import lombok.RequiredArgsConstructor;
+import com.redis.om.spring.annotations.*;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -21,14 +11,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data
-@NoArgsConstructor
-@RequiredArgsConstructor(staticName = "of")
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Document
 public class User {
 
     @Id
     @Indexed
+    @AutoCompletePayload("fullName")
     private String id;
 
     @NonNull
@@ -38,6 +26,9 @@ public class User {
     @NonNull
     @Searchable
     private String lastName;
+
+    @AutoComplete
+    private String fullName;
 
     @NonNull
     @TagIndexed
@@ -55,6 +46,49 @@ public class User {
 
     @LastModifiedDate
     private Date lastModifiedDate;
+
+    protected User(
+            String id,
+            @NonNull String firstName,
+            @NonNull String lastName,
+            @NonNull String email,
+            @NonNull String bio,
+            Set<String> roles,
+            Date createdDate,
+            Date lastModifiedDate
+    ) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullName = firstName + " " + lastName;
+        this.email = email;
+        this.bio = bio;
+        this.roles = roles;
+        this.createdDate = createdDate;
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    private User(
+            @NonNull String firstName,
+            @NonNull String lastName,
+            @NonNull String email,
+            @NonNull String bio
+    ) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.fullName = firstName + " " + lastName;
+        this.email = email;
+        this.bio = bio;
+    }
+
+    public static User of(
+            @NonNull String firstName,
+            @NonNull String lastName,
+            @NonNull String email,
+            @NonNull String bio
+    ) {
+        return new User(firstName, lastName, email, bio);
+    }
 
     public void addRole(Role role) {
         this.roles.add(role.getValue());

@@ -17,4 +17,6 @@ public interface ArticleService {
     Article save(ArticlePostRequest article);
 
     void deleteById(String id);
+
+    Article findById(String id);
 }

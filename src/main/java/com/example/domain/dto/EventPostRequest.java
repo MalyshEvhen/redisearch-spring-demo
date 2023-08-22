@@ -5,14 +5,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
-
-import static com.example.constraints.SharedConstraints.MAX_CONTENT_LENGTH;
-import static com.example.constraints.SharedConstraints.MAX_TITLE_LENGTH;
-import static com.example.constraints.SharedConstraints.MIN_CONTENT_LENGTH;
-import static com.example.constraints.SharedConstraints.MIN_TITLE_LENGTH;
+import static com.example.constraints.SharedConstraints.*;
 
 public record EventPostRequest(
 
@@ -32,10 +28,10 @@ public record EventPostRequest(
 
         @NotNull
         @Future
-        LocalDateTime begin,
+        LocalDate begin,
 
         @NotNull
         @Future
-        LocalDateTime end
+        LocalDate end
 ) {
 }

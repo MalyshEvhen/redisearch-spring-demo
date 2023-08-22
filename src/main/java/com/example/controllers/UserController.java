@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
@@ -34,17 +34,9 @@ public class UserController {
         return userService.findAll(pageable);
     }
 
-    @Operation(summary = "Full text search by users firstname and lastname")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Successfully retrieve collection of users",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = User.class)))})
-    @GetMapping("/search/{q}")
-    Iterable<User> search(@PathVariable("q") String query) {
-        return userService.search(query);
+    @GetMapping("/get-by-id/{id}")
+    User byId(@PathVariable("id") String id) {
+        return userService.findById(id);
     }
 
     @Operation(summary = "Save new user")

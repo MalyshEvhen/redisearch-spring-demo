@@ -1,8 +1,6 @@
 package com.example.domain.models;
 
-import com.redis.om.spring.annotations.Document;
-import com.redis.om.spring.annotations.Indexed;
-import com.redis.om.spring.annotations.Searchable;
+import com.redis.om.spring.annotations.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,10 +24,11 @@ public class Article {
 
     @Id
     @Indexed
+    @AutoCompletePayload("title")
     private String id;
 
     @NonNull
-    @Searchable
+    @AutoComplete
     private String title;
 
     @NonNull

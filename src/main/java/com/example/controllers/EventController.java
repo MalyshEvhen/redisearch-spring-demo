@@ -13,7 +13,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -33,23 +33,15 @@ public class EventController {
                             schema = @Schema(implementation = Event.class)))})
     @GetMapping("/between")
     List<Event> byStartAndEndOf(@RequestParam("start")
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime start,
+                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate start,
                                 @RequestParam("end")
-                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime end) {
+                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDate end) {
         return eventService.searchByBeginDateBetween(start, end);
     }
 
-    @Operation(summary = "Full text search by part of event title")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Successfully retrieved the collection of events",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = Event.class)))})
-    @GetMapping("/search/{q}")
-    Iterable<Event> search(@PathVariable("q") String q) {
-        return eventService.search(q);
+    @GetMapping("/get-by-id/{id}")
+    Event byId(@PathVariable("id") String id) {
+        return eventService.findById(id);
     }
 
     @Operation(summary = "Find events by array of tags")

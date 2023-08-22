@@ -35,6 +35,11 @@ class ArticleController {
         return articleService.findAll(pageable);
     }
 
+    @GetMapping("/get-by-id/{id}")
+    Article byId(@PathVariable("id") String id) {
+        return articleService.findById(id);
+    }
+
     @Operation(summary = "Get a list of all articles by author ID")
     @ApiResponses(value = {
             @ApiResponse(
@@ -50,20 +55,6 @@ class ArticleController {
         var pageable = Pageable.ofSize(size).withPage(page);
         return articleService.findByAuthorId(id, pageable);
     }
-
-    @Operation(summary = "Get a list of all articles by part of article title")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Successfully retrieved the collection of articles",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = Article.class)))})
-    @GetMapping("/search/{q}")
-    Iterable<Article> search(@PathVariable("q") String query) {
-        return articleService.search(query);
-    }
-
 
     @Operation(summary = "Create a new article")
     @ApiResponses(value = {

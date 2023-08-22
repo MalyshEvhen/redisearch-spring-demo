@@ -1,15 +1,13 @@
 package com.example.domain.models;
 
-import com.redis.om.spring.annotations.Document;
-import com.redis.om.spring.annotations.Indexed;
-import com.redis.om.spring.annotations.Searchable;
+import com.redis.om.spring.annotations.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Reference;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,10 +21,11 @@ public class Event {
 
     @Id
     @Indexed
+    @AutoCompletePayload("title")
     private String id;
 
     @NonNull
-    @Searchable
+    @AutoComplete
     private String title;
 
     @NonNull
@@ -40,11 +39,11 @@ public class Event {
 
     @NonNull
     @Indexed
-    private LocalDateTime beginDate;
+    private LocalDate beginDate;
 
     @NonNull
     @Indexed
-    private LocalDateTime endDate;
+    private LocalDate endDate;
 
     @CreatedDate
     private Date createdDate;

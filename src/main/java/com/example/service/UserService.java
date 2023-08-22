@@ -7,10 +7,8 @@ import org.springframework.data.domain.Pageable;
 
 public interface UserService {
     Page<User> findAll(Pageable pageable);
-
     Iterable<User> search(String query);
-
     User save(UserRegistration user);
-
     void deleteById(String id);
+    User findById(String id);
 }

@@ -11,7 +11,7 @@ import com.redis.om.spring.search.stream.EntityStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,7 @@ public class EventServiceImpl implements EventService {
     private final EntityStream entityStream;
 
     @Override
-    public List<Event> searchByBeginDateBetween(LocalDateTime start, LocalDateTime end) {
+    public List<Event> searchByBeginDateBetween(LocalDate start, LocalDate end) {
         return entityStream.of(Event.class)
                 .filter(Event$.BEGIN_DATE.between(start, end))
                 .collect(Collectors.toList());
@@ -60,5 +60,11 @@ public class EventServiceImpl implements EventService {
     @Override
     public Iterable<Event> altSearch(String q) {
         return null;
+    }
+
+    @Override
+    public Event findById(String id) {
+        return eventRepository.findById(id)
+                .orElseThrow();
     }
 }

@@ -52,19 +52,6 @@ public class EventController {
         return eventService.search(q);
     }
 
-    @Operation(summary = "Full text ALTERNATIVE search by part of event title")
-    @ApiResponses(value = {
-            @ApiResponse(
-                    responseCode = "200",
-                    description = "Successfully retrieved the collection of events",
-                    content = @Content(
-                            mediaType = "application/json",
-                            schema = @Schema(implementation = Event.class)))})
-    @GetMapping("/search/{q}")
-    Iterable<Event> alternativeSearch(@PathVariable("q") String q) {
-        return eventService.altSearch(q);
-    }
-
     @Operation(summary = "Find events by array of tags")
     @ApiResponses(value = {
             @ApiResponse(

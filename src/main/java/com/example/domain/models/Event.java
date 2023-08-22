@@ -7,6 +7,7 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.annotation.Reference;
 
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -34,6 +35,7 @@ public class Event {
     @Indexed
     private Set<String> tags = new HashSet<>();
 
+    @Reference
     Set<User> artists = new HashSet<>();
 
     @NonNull

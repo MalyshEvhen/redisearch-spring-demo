@@ -1,8 +1,8 @@
 package com.example.util;
 
 import com.example.domain.models.Article;
-import com.example.domain.models.User;
 import com.example.domain.models.Event;
+import com.example.domain.models.User;
 import com.github.javafaker.Faker;
 
 import java.time.LocalDateTime;

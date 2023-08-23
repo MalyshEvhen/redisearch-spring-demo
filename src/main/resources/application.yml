@@ -1,8 +1,14 @@
 spring:
+  data:
+    redis:
+      host: ${REDIS_HOST:redis}
+      port: ${REDIS_PORT:6379}
+
   thymeleaf:
     cache: false
     check-template: true
     check-template-location: true
+
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER

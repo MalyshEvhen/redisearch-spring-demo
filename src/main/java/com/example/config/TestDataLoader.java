@@ -28,7 +28,7 @@ public class TestDataLoader {
             EventRepository eventRepository
     ) {
         return args -> {
-            IntStream.range(0, 100).forEach(n -> {
+            IntStream.range(0, 30).forEach(n -> {
                 var author = userRepository.save(createUser(AUTHOR));
                 IntStream.range(0, 10).forEach(i -> {
                     var article = FakeDataGenerator.createArticle(author);
@@ -36,9 +36,9 @@ public class TestDataLoader {
                 });
             });
 
-            IntStream.range(0, 10).forEach(n -> {
+            IntStream.range(0, 20).forEach(n -> {
                 var artists = new HashSet<User>();
-                IntStream.range(0, 10).forEach(i -> {
+                IntStream.range(0, 4).forEach(i -> {
                     var artist = userRepository.save(createUser(ARTIST));
                     artists.add(artist);
                 });

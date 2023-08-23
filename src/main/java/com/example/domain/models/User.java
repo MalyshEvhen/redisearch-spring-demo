@@ -60,7 +60,7 @@ public class User {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fullName = firstName + " " + lastName;
+        this.fullName = lastName + " " + firstName;
         this.email = email;
         this.bio = bio;
         this.roles = roles;
@@ -76,7 +76,7 @@ public class User {
     ) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fullName = firstName + " " + lastName;
+        this.fullName = lastName + " " + firstName;
         this.email = email;
         this.bio = bio;
     }

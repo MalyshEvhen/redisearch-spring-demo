@@ -8,14 +8,18 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Validated
+@Tag(name = "Events", description = "REST controller for managing museum events.")
 @RestController
 @RequestMapping("/api/events")
 @RequiredArgsConstructor
@@ -23,11 +27,12 @@ public class EventController {
 
     private final EventService eventService;
 
-    @Operation(summary = "Find event in between begin and end dates")
+    @Operation(summary = "Find event in between begin and end dates.")
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Successfully retrieved the collection of events",
+                    description = "Successfully retrieved the collection of events," +
+                            " or empty list if no events was found in this period.",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = Event.class)))})
@@ -39,6 +44,20 @@ public class EventController {
         return eventService.searchByBeginDateBetween(start, end);
     }
 
+    @Operation(summary = "Find Event by ID")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Event found successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Event.class))),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "ID is invalid."),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Event not found")})
     @GetMapping("/get-by-id/{id}")
     Event byId(@PathVariable("id") String id) {
         return eventService.findById(id);
@@ -48,7 +67,8 @@ public class EventController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Successfully retrieved the collection of events",
+                    description = "Successfully retrieved the collection of events," +
+                            " or empty list if no events found by given tags.",
                     content = @Content(
                             mediaType = "application/json",
                             schema = @Schema(implementation = Event.class)))})
@@ -64,7 +84,10 @@ public class EventController {
                     description = "Event successfully created",
                     content = @Content(
                             mediaType = "application/json",
-                            schema = @Schema(implementation = Event.class)))})
+                            schema = @Schema(implementation = Event.class))),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Event form is invalid.")})
     @PostMapping("/save")
     @ResponseStatus(HttpStatus.CREATED)
     Event save(@RequestBody EventPostRequest event) {

@@ -33,9 +33,9 @@ public class SearchServiceImpl implements SearchService {
         var eventSuggestions = getEventSuggestions(query);
         var articleSuggestion = getArticleSuggestions(query);
 
-        totalSuggestion.addAll(userSuggestions);
         totalSuggestion.addAll(eventSuggestions);
         totalSuggestion.addAll(articleSuggestion);
+        totalSuggestion.addAll(userSuggestions);
 
         return totalSuggestion;
     }

@@ -59,7 +59,7 @@ class App extends React.Component {
     onSuggestionSelected = (event, {suggestion}) => {
         let payload = suggestion.payload;
         this.setState({
-            selected: `ID=${payload.id} Redirect link: http://localhost:8080${payload.redirectPath}`,
+            selected: `ID=${payload.id} \n Redirect link: http://localhost:8080${payload.redirectPath}`,
             showSelection: true
         });
     };

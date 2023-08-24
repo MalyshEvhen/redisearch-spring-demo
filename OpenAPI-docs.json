@@ -1,0 +1,1039 @@
+{
+
+      "openapi": "3.0.1",
+      "info": {
+            "title": "Museum Demo Application",
+            "description": "Application create for demonstration purposes.",
+            "contact": {
+                  "name": "Evhen Malysh",
+                  "url": "https://example.com/contacts",
+                  "email": "email@example.com"
+            },
+            "license": {
+                  "name": "Apache 2.0",
+                  "url": "https://example.com/licence"
+            },
+            "version": "0.0.1"
+      },
+      "servers": [
+            {
+                  "url": "http://localhost:8080",
+                  "description": "Generated server url"
+            }
+      ],
+      "tags": [
+            {
+                  "name": "Users",
+                  "description": "REST controller for managing users."
+            },
+            {
+                  "name": "Search",
+                  "description": "REST controller for global search."
+            },
+            {
+                  "name": "Articles",
+                  "description": "REST controller for managing museum articles."
+            },
+            {
+                  "name": "Events",
+                  "description": "REST controller for managing museum events."
+            }
+      ],
+      "paths": {
+            "/api/users/save": {
+                  "post": {
+                        "tags": [
+                              "Users"
+                        ],
+                        "summary": "Save new user",
+                        "operationId": "save",
+                        "requestBody": {
+                              "content": {
+                                    "application/json": {
+                                          "schema": {
+                                                "$ref": "#/components/schemas/UserRegistration"
+                                          }
+                                    }
+                              },
+                              "required": true
+                        },
+                        "responses": {
+                              "201": {
+                                    "description": "Successfully save the user",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/User"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Registration form is invalid",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/events/save": {
+                  "post": {
+                        "tags": [
+                              "Events"
+                        ],
+                        "summary": "Create new event",
+                        "operationId": "save_1",
+                        "requestBody": {
+                              "content": {
+                                    "application/json": {
+                                          "schema": {
+                                                "$ref": "#/components/schemas/EventPostRequest"
+                                          }
+                                    }
+                              },
+                              "required": true
+                        },
+                        "responses": {
+                              "201": {
+                                    "description": "Event successfully created",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Event"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Event form is invalid.",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/articles/save": {
+                  "post": {
+                        "tags": [
+                              "Articles"
+                        ],
+                        "summary": "Create a new article",
+                        "operationId": "save_2",
+                        "requestBody": {
+                              "content": {
+                                    "application/json": {
+                                          "schema": {
+                                                "$ref": "#/components/schemas/ArticlePostRequest"
+                                          }
+                                    }
+                              },
+                              "required": true
+                        },
+                        "responses": {
+                              "201": {
+                                    "description": "Article created successfully",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Article"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Article request is not valid.",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/users/get-by-id/{id}": {
+                  "get": {
+                        "tags": [
+                              "Users"
+                        ],
+                        "summary": "Get a specific author by ID",
+                        "operationId": "byId",
+                        "parameters": [
+                              {
+                                    "name": "id",
+                                    "in": "path",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Successfully retrieved the author",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/User"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Id is invalid",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Author not found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/users/all": {
+                  "get": {
+                        "tags": [
+                              "Users"
+                        ],
+                        "summary": "Find all users",
+                        "operationId": "getAll",
+                        "parameters": [
+                              {
+                                    "name": "size",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "integer",
+                                          "format": "int32"
+                                    }
+                              },
+                              {
+                                    "name": "page",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "integer",
+                                          "format": "int32"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Successfully retrieve page of users",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/User"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Bad Request",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/search/{q}": {
+                  "get": {
+                        "tags": [
+                              "Search"
+                        ],
+                        "summary": "Endpoint for test autocompletion",
+                        "operationId": "search",
+                        "parameters": [
+                              {
+                                    "name": "q",
+                                    "in": "path",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "List of suggestions was retrieved, or empty list ,if it is no suggestions.",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "array",
+                                                      "items": {
+                                                            "$ref": "#/components/schemas/Suggestion"
+                                                      }
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Bad Request",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/events/tags": {
+                  "get": {
+                        "tags": [
+                              "Events"
+                        ],
+                        "summary": "Find events by array of tags",
+                        "operationId": "allByTags",
+                        "parameters": [
+                              {
+                                    "name": "tags",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "array",
+                                          "items": {
+                                                "type": "string"
+                                          }
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Successfully retrieved the collection of events, or empty list if no events found by given tags.",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Event"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Bad Request",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/events/get-by-id/{id}": {
+                  "get": {
+                        "tags": [
+                              "Events"
+                        ],
+                        "summary": "Find Event by ID",
+                        "operationId": "byId_1",
+                        "parameters": [
+                              {
+                                    "name": "id",
+                                    "in": "path",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Event found successfully",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Event"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "ID is invalid.",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Event not found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/events/between": {
+                  "get": {
+                        "tags": [
+                              "Events"
+                        ],
+                        "summary": "Find event in between begin and end dates.",
+                        "operationId": "byStartAndEndOf",
+                        "parameters": [
+                              {
+                                    "name": "start",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string",
+                                          "format": "date"
+                                    }
+                              },
+                              {
+                                    "name": "end",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string",
+                                          "format": "date"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Successfully retrieved the collection of events, or empty list if no events was found in this period.",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Event"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Bad Request",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/articles/get-by-id/{id}": {
+                  "get": {
+                        "tags": [
+                              "Articles"
+                        ],
+                        "summary": "Find article by ID",
+                        "operationId": "byId_2",
+                        "parameters": [
+                              {
+                                    "name": "id",
+                                    "in": "path",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Successfully retrieved article",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Article"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "ID is invalid",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Article not found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/articles/by-author-id": {
+                  "get": {
+                        "tags": [
+                              "Articles"
+                        ],
+                        "summary": "Get a list of all articles by author ID",
+                        "operationId": "byAuthor",
+                        "parameters": [
+                              {
+                                    "name": "authorId",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string"
+                                    }
+                              },
+                              {
+                                    "name": "size",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "integer",
+                                          "format": "int32"
+                                    }
+                              },
+                              {
+                                    "name": "page",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "integer",
+                                          "format": "int32"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Successfully retrieved the list of articles or empty list, if no articles been found by author ID",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Article"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Bad Request",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/articles/all": {
+                  "get": {
+                        "tags": [
+                              "Articles"
+                        ],
+                        "summary": "Get all articles",
+                        "operationId": "all",
+                        "parameters": [
+                              {
+                                    "name": "size",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "integer",
+                                          "format": "int32"
+                                    }
+                              },
+                              {
+                                    "name": "page",
+                                    "in": "query",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "integer",
+                                          "format": "int32"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "200": {
+                                    "description": "Successfully retrieved the list of articles or empty list, if no articles is present in DB",
+                                    "content": {
+                                          "application/json": {
+                                                "schema": {
+                                                      "$ref": "#/components/schemas/Article"
+                                                }
+                                          }
+                                    }
+                              },
+                              "400": {
+                                    "description": "Bad Request",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Not Found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/users/delete/{id}": {
+                  "delete": {
+                        "tags": [
+                              "Users"
+                        ],
+                        "summary": "Delete existing user",
+                        "operationId": "delete",
+                        "parameters": [
+                              {
+                                    "name": "id",
+                                    "in": "path",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "204": {
+                                    "description": "Successfully delete the user"
+                              },
+                              "400": {
+                                    "description": "ID is invalid",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "User not found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            },
+            "/api/articles/delete/{id}": {
+                  "delete": {
+                        "tags": [
+                              "Articles"
+                        ],
+                        "summary": "Delete an article by ID",
+                        "operationId": "delete_1",
+                        "parameters": [
+                              {
+                                    "name": "id",
+                                    "in": "path",
+                                    "required": true,
+                                    "schema": {
+                                          "type": "string"
+                                    }
+                              }
+                        ],
+                        "responses": {
+                              "204": {
+                                    "description": "Article deleted successfully"
+                              },
+                              "400": {
+                                    "description": "Id is not valid",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              },
+                              "404": {
+                                    "description": "Article not found",
+                                    "content": {
+                                          "*/*": {
+                                                "schema": {
+                                                      "type": "object"
+                                                }
+                                          }
+                                    }
+                              }
+                        }
+                  }
+            }
+      },
+      "components": {
+            "schemas": {
+                  "UserRegistration": {
+                        "required": [
+                              "email",
+                              "firstname",
+                              "lastname"
+                        ],
+                        "type": "object",
+                        "properties": {
+                              "firstname": {
+                                    "maxLength": 30,
+                                    "minLength": 3,
+                                    "type": "string"
+                              },
+                              "lastname": {
+                                    "maxLength": 30,
+                                    "minLength": 3,
+                                    "type": "string"
+                              },
+                              "email": {
+                                    "maxLength": 100,
+                                    "minLength": 0,
+                                    "pattern": "^[A-Za-z0-9+_.-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,}$",
+                                    "type": "string"
+                              },
+                              "bio": {
+                                    "maxLength": 3000,
+                                    "minLength": 0,
+                                    "type": "string"
+                              }
+                        }
+                  },
+                  "User": {
+                        "type": "object",
+                        "properties": {
+                              "id": {
+                                    "type": "string"
+                              },
+                              "firstName": {
+                                    "type": "string"
+                              },
+                              "lastName": {
+                                    "type": "string"
+                              },
+                              "fullName": {
+                                    "type": "string"
+                              },
+                              "email": {
+                                    "type": "string"
+                              },
+                              "bio": {
+                                    "type": "string"
+                              },
+                              "roles": {
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                          "type": "string"
+                                    }
+                              },
+                              "createdDate": {
+                                    "type": "string",
+                                    "format": "date-time"
+                              },
+                              "lastModifiedDate": {
+                                    "type": "string",
+                                    "format": "date-time"
+                              }
+                        }
+                  },
+                  "EventPostRequest": {
+                        "required": [
+                              "begin",
+                              "content",
+                              "end",
+                              "title"
+                        ],
+                        "type": "object",
+                        "properties": {
+                              "title": {
+                                    "maxLength": 300,
+                                    "minLength": 3,
+                                    "type": "string"
+                              },
+                              "content": {
+                                    "maxLength": 3000,
+                                    "minLength": 30,
+                                    "type": "string"
+                              },
+                              "tags": {
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                          "type": "string"
+                                    }
+                              },
+                              "artistIds": {
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                          "type": "string"
+                                    }
+                              },
+                              "begin": {
+                                    "type": "string",
+                                    "format": "date"
+                              },
+                              "end": {
+                                    "type": "string",
+                                    "format": "date"
+                              }
+                        }
+                  },
+                  "Event": {
+                        "type": "object",
+                        "properties": {
+                              "id": {
+                                    "type": "string"
+                              },
+                              "title": {
+                                    "type": "string"
+                              },
+                              "content": {
+                                    "type": "string"
+                              },
+                              "tags": {
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                          "type": "string"
+                                    }
+                              },
+                              "artists": {
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                          "$ref": "#/components/schemas/User"
+                                    }
+                              },
+                              "beginDate": {
+                                    "type": "string",
+                                    "format": "date"
+                              },
+                              "endDate": {
+                                    "type": "string",
+                                    "format": "date"
+                              },
+                              "createdDate": {
+                                    "type": "string",
+                                    "format": "date-time"
+                              },
+                              "lastModifiedDate": {
+                                    "type": "string",
+                                    "format": "date-time"
+                              }
+                        }
+                  },
+                  "ArticlePostRequest": {
+                        "required": [
+                              "authorId",
+                              "content",
+                              "title"
+                        ],
+                        "type": "object",
+                        "properties": {
+                              "title": {
+                                    "maxLength": 300,
+                                    "minLength": 3,
+                                    "type": "string"
+                              },
+                              "content": {
+                                    "maxLength": 3000,
+                                    "minLength": 30,
+                                    "type": "string"
+                              },
+                              "tags": {
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                          "type": "string"
+                                    }
+                              },
+                              "authorId": {
+                                    "type": "string"
+                              }
+                        }
+                  },
+                  "Article": {
+                        "type": "object",
+                        "properties": {
+                              "id": {
+                                    "type": "string"
+                              },
+                              "title": {
+                                    "type": "string"
+                              },
+                              "content": {
+                                    "type": "string"
+                              },
+                              "tags": {
+                                    "uniqueItems": true,
+                                    "type": "array",
+                                    "items": {
+                                          "type": "string"
+                                    }
+                              },
+                              "author": {
+                                    "$ref": "#/components/schemas/User"
+                              },
+                              "createdDate": {
+                                    "type": "string",
+                                    "format": "date-time"
+                              },
+                              "lastModifiedDate": {
+                                    "type": "string",
+                                    "format": "date-time"
+                              }
+                        }
+                  },
+                  "Suggestion": {
+                        "type": "object",
+                        "properties": {
+                              "value": {
+                                    "type": "string"
+                              },
+                              "score": {
+                                    "type": "number",
+                                    "format": "double"
+                              },
+                              "payload": {
+                                    "type": "object",
+                                    "additionalProperties": {
+                                          "type": "object"
+                                    }
+                              }
+                        }
+                  }
+            }
+      }
+
+}

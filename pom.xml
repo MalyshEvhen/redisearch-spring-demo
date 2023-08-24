@@ -141,6 +141,10 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.graalvm.buildtools</groupId>
+                <artifactId>native-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
@@ -151,20 +155,6 @@
                         </exclude>
                     </excludes>
                 </configuration>
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>pre-integration-test</id>-->
-<!--                        <goals>-->
-<!--                            <goal>start</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>post-integration-test</id>-->
-<!--                        <goals>-->
-<!--                            <goal>stop</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -58,11 +58,6 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Iterable<Event> altSearch(String q) {
-        return null;
-    }
-
-    @Override
     public Event findById(String id) {
         return eventRepository.findById(id)
                 .orElseThrow();

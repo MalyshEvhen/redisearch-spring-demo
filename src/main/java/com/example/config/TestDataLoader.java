@@ -7,7 +7,6 @@ import com.example.repositories.UserRepository;
 import com.example.util.FakeDataGenerator;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;

@@ -11,5 +11,6 @@
     <ul>
         <li><a href="/articles" on:click={drawerClose}>Articles</a></li>
         <li><a href="/notes" on:click={drawerClose}>Events</a></li>
+        <li><a href="/posts" on:click={drawerClose}>Posts</a></li>
     </ul>
 </nav>

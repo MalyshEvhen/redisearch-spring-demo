@@ -63,7 +63,7 @@ public class User {
         this.fullName = lastName + " " + firstName;
         this.email = email;
         this.bio = bio;
-        this.roles = roles;
+        this.roles.addAll(roles);
         this.createdDate = createdDate;
         this.lastModifiedDate = lastModifiedDate;
     }

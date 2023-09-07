@@ -1,6 +1,7 @@
 package com.example.controllers;
 
 import com.example.domain.dto.EventPostRequest;
+import com.example.domain.models.Article;
 import com.example.domain.models.Event;
 import com.example.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,8 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -26,6 +29,21 @@ import java.util.List;
 public class EventController {
 
     private final EventService eventService;
+
+    @Operation(summary = "Get all events")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Successfully retrieved the page of events or empty page," +
+                            " if no articles is present in DB",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Event.class)))})
+    @GetMapping("/all")
+    Page<Event> getAll(@RequestParam("size") int size, @RequestParam("page") int page) {
+        Pageable pageable = Pageable.ofSize(size).withPage(page);
+        return eventService.findAll(pageable);
+    }
 
     @Operation(summary = "Find event in between begin and end dates.")
     @ApiResponses(value = {

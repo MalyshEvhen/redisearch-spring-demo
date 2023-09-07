@@ -10,6 +10,8 @@ import com.example.repositories.EventRepository;
 import com.example.service.EventService;
 import com.redis.om.spring.search.stream.EntityStream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -59,5 +61,10 @@ public class EventServiceImpl implements EventService {
     public Event findById(String id) {
         return eventRepository.findById(id)
                 .orElseThrow();
+    }
+
+    @Override
+    public Page<Event> findAll(Pageable pageable) {
+        return eventRepository.findAll(pageable);
     }
 }

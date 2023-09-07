@@ -28,7 +28,7 @@ class ArticleController {
     @ApiResponses(value = {
             @ApiResponse(
                     responseCode = "200",
-                    description = "Successfully retrieved the list of articles or empty list," +
+                    description = "Successfully retrieved the page of articles or empty page," +
                             " if no articles is present in DB",
                     content = @Content(
                             mediaType = "application/json",

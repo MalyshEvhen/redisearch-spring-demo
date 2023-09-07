@@ -3,13 +3,19 @@ package com.example.util;
 import com.example.domain.models.Article;
 import com.example.domain.models.Event;
 import com.example.domain.models.User;
+import com.example.domain.models.content.ContentBlock;
 import com.github.javafaker.Faker;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
+
+import static com.example.domain.models.content.ContentBlock.ContentType.IMAGE;
+import static com.example.domain.models.content.ContentBlock.ContentType.TEXT;
 
 public class FakeDataGenerator {
 
@@ -26,7 +32,7 @@ public class FakeDataGenerator {
 
     public static Article createArticle(User user) {
         var title = getArticleTitle();
-        var content = getRandomText();
+        var content = getContent();
         var article = Article.of(title, content, user);
 
         int counter = ThreadLocalRandom.current().nextInt(5);
@@ -40,7 +46,7 @@ public class FakeDataGenerator {
 
     public static Event createEvent(Set<User> artists) {
         var title = getEventTitle();
-        var content = getRandomText();
+        var content = getContent();
         var begin = getFutureDate(LocalDate.now());
         var end = getFutureDate(begin);
         var event = Event.of(title, content, begin, end);
@@ -51,8 +57,32 @@ public class FakeDataGenerator {
             event.addTag(tag);
             counter--;
         }
-        artists.forEach(event::addUser);
+        artists.forEach(event::addArtist);
         return event;
+    }
+
+    private static List<ContentBlock> getContent() {
+        var contentBlocks = new ArrayList<ContentBlock>();
+
+        int counter = ThreadLocalRandom.current().nextInt(4);
+        while (counter >= 0) {
+            contentBlocks.add(getContentBlock(counter + 1));
+            counter--;
+        }
+        return contentBlocks;
+    }
+
+    private static ContentBlock getContentBlock(int order) {
+        int column = ThreadLocalRandom.current().nextInt(2);
+
+        var contentBlock = new ContentBlock();
+        contentBlock.setContent(getRandomText());
+        contentBlock.setOrder(order);
+        contentBlock.setColumns(column + 1);
+        contentBlock.setType(order % 2 == 0 ? TEXT.getValue() : IMAGE.getValue());
+        contentBlock.setImageLabel("image-label");
+        contentBlock.setImageLink("image-link");
+        return contentBlock;
     }
 
     private static LocalDate getFutureDate(LocalDate from) {

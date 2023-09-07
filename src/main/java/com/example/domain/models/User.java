@@ -6,6 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.LastModifiedDate;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -46,6 +47,10 @@ public class User {
 
     @LastModifiedDate
     private Date lastModifiedDate;
+
+    public User(String id) {
+        this.id = id;
+    }
 
     protected User(
             String id,

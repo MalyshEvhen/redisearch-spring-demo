@@ -1,9 +1,14 @@
 package com.example.domain.dto;
 
+import com.example.domain.models.content.ContentBlock;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 import static com.example.constraints.SharedConstraints.MAX_CONTENT_LENGTH;
@@ -19,9 +24,8 @@ public record ArticlePostRequest(
         String title,
 
         @NotNull
-        @NotBlank
-        @Size(min = MIN_CONTENT_LENGTH, max = MAX_CONTENT_LENGTH)
-        String content,
+        @Valid
+        List<ContentBlockDto> content,
 
         Set<String> tags,
 

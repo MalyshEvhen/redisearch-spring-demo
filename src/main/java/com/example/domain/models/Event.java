@@ -1,6 +1,10 @@
 package com.example.domain.models;
 
-import com.redis.om.spring.annotations.*;
+import com.example.domain.models.content.ContentBlock;
+import com.redis.om.spring.annotations.AutoComplete;
+import com.redis.om.spring.annotations.AutoCompletePayload;
+import com.redis.om.spring.annotations.Document;
+import com.redis.om.spring.annotations.Indexed;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -8,9 +12,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.annotation.Reference;
 
 import java.time.LocalDate;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @NoArgsConstructor
@@ -29,7 +31,7 @@ public class Event {
     private String title;
 
     @NonNull
-    private String content;
+    private List<ContentBlock> content;
 
     @Indexed
     private Set<String> tags = new HashSet<>();
@@ -51,11 +53,16 @@ public class Event {
     @LastModifiedDate
     private Date lastModifiedDate;
 
-    public void addUser(User user) {
+    public void addArtist(User user) {
         this.artists.add(user);
+    }
+
+    public void addArtists(Collection<User> users) {
+        this.artists.addAll(users);
     }
 
     public void addTag(String tag) {
         this.tags.add(tag);
     }
+
 }

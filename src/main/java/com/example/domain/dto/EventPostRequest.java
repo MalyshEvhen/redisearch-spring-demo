@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 
 import static com.example.constraints.SharedConstraints.*;
@@ -17,10 +18,7 @@ public record EventPostRequest(
         @Size(min = MIN_TITLE_LENGTH, max = MAX_TITLE_LENGTH)
         String title,
 
-        @NotNull
-        @NotBlank
-        @Size(min = MIN_CONTENT_LENGTH, max = MAX_CONTENT_LENGTH)
-        String content,
+        List<ContentBlockDto> content,
 
         Set<String> tags,
 

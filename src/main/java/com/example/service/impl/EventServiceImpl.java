@@ -5,6 +5,7 @@ import com.example.domain.models.Event;
 import com.example.domain.models.Event$;
 import com.example.domain.models.User;
 import com.example.domain.models.User$;
+import com.example.mapper.EventMapper;
 import com.example.repositories.EventRepository;
 import com.example.service.EventService;
 import com.redis.om.spring.search.stream.EntityStream;
@@ -18,8 +19,10 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class EventServiceImpl implements EventService {
+
     private final EventRepository eventRepository;
     private final EntityStream entityStream;
+    private final EventMapper eventMapper;
 
     @Override
     public List<Event> searchByBeginDateBetween(LocalDate start, LocalDate end) {
@@ -41,18 +44,13 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Event save(EventPostRequest event) {
-        String[] artistIds = event.artistIds().toArray(String[]::new);
+    public Event save(EventPostRequest request) {
+        String[] artistIds = request.artistIds().toArray(String[]::new);
         var artists = entityStream.of(User.class)
                 .filter(User$.ID.in(artistIds))
                 .collect(Collectors.toSet());
-        var eventToSave = Event.of(
-                event.title(),
-                event.content(),
-                event.begin(),
-                event.end()
-        );
-        artists.forEach(eventToSave::addUser);
+        var eventToSave = eventMapper.toEvent(request);
+        eventToSave.addArtists(artists);
 
         return eventRepository.save(eventToSave);
     }

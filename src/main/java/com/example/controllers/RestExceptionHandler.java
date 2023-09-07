@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.example.exceptions.StorageException;
+import com.example.exceptions.StorageFileNotFoundException;
+
 import java.util.NoSuchElementException;
 
 /**
@@ -31,7 +34,8 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler({
             ConstraintViolationException.class,
             ValidationException.class,
-            IllegalArgumentException.class})
+            IllegalArgumentException.class,
+            StorageException.class})
     @ResponseStatus(code = HttpStatus.BAD_REQUEST)
     protected final ResponseEntity<Object> handleBadRequests(
             final RuntimeException ex, final WebRequest request) {
@@ -46,7 +50,9 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
      * @param request web request
      * @return ResponseEntity with 404 HTTP status code
      */
-    @ExceptionHandler({NoSuchElementException.class})
+    @ExceptionHandler(
+             {NoSuchElementException.class,
+             StorageFileNotFoundException.class})
     @ResponseStatus(code = HttpStatus.NOT_FOUND)
     protected final ResponseEntity<Object> handleNotFound(
             final RuntimeException ex, final WebRequest request) {

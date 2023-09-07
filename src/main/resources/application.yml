@@ -1,7 +1,7 @@
 spring:
   data:
     redis:
-      host: ${REDIS_HOST:redis}
+      host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
 
   thymeleaf:
@@ -12,3 +12,11 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ANT_PATH_MATCHER
+
+logging:
+  level:
+    web: debug
+
+resources:
+  files:
+    upload-dir: 'files'

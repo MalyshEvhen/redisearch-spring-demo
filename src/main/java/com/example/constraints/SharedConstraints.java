@@ -10,5 +10,5 @@ public class SharedConstraints {
     public static final int MAX_TITLE_LENGTH = 300;
     public static final int MAX_FIELD_LENGTH = 100;
     public static final int MIN_CONTENT_LENGTH = 30;
-    public static final int MAX_CONTENT_LENGTH = 3000;
+    public static final int MAX_CONTENT_LENGTH = 300;
 }

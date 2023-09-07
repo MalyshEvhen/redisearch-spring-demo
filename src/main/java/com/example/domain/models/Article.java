@@ -1,5 +1,7 @@
 package com.example.domain.models;
 
+import com.example.domain.models.User;
+import com.example.domain.models.content.ContentBlock;
 import com.redis.om.spring.annotations.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -32,7 +35,7 @@ public class Article {
     private String title;
 
     @NonNull
-    private String content;
+    private List<ContentBlock> content;
 
     @Indexed
     private Set<String> tags = new HashSet<>();

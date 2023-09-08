@@ -1,6 +1,5 @@
 package com.example.domain.models;
 
-import com.example.domain.models.User;
 import com.example.domain.models.content.ContentBlock;
 import com.redis.om.spring.annotations.*;
 import lombok.AccessLevel;
@@ -23,18 +22,24 @@ import java.util.Set;
 @RequiredArgsConstructor(staticName = "of")
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Document
-public class Article {
+public class Article implements Post {
 
     @Id
     @Indexed
-    @AutoCompletePayload("title")
+    @AutoCompletePayload(fields = "title")
     private String id;
 
     @NonNull
+    @Searchable
     @AutoComplete
     private String title;
 
     @NonNull
+    @AutoCompletePayload(fields = "title")
+    private String description;
+
+    @NonNull
+    @Indexed
     private List<ContentBlock> content;
 
     @Indexed

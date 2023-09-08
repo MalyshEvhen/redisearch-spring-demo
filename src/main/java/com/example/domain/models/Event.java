@@ -1,10 +1,7 @@
 package com.example.domain.models;
 
 import com.example.domain.models.content.ContentBlock;
-import com.redis.om.spring.annotations.AutoComplete;
-import com.redis.om.spring.annotations.AutoCompletePayload;
-import com.redis.om.spring.annotations.Document;
-import com.redis.om.spring.annotations.Indexed;
+import com.redis.om.spring.annotations.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -19,18 +16,24 @@ import java.util.*;
 @RequiredArgsConstructor(staticName = "of")
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Document
-public class Event {
+public class Event implements Post {
 
     @Id
     @Indexed
-    @AutoCompletePayload("title")
+    @AutoCompletePayload(fields = "title")
     private String id;
 
     @NonNull
+    @Searchable
     @AutoComplete
     private String title;
 
     @NonNull
+    @AutoCompletePayload(fields = "title")
+    private String description;
+
+    @NonNull
+    @Indexed
     private List<ContentBlock> content;
 
     @Indexed

@@ -1,14 +1,12 @@
 package com.example.domain.models.content;
 
 
-import com.example.util.CustomMultipartFile;
 import com.redis.om.spring.annotations.Document;
-import com.redis.om.spring.annotations.Searchable;
+import com.redis.om.spring.annotations.Indexed;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
 
 import static com.example.constraints.SharedConstraints.MAX_CONTENT_LENGTH;
 import static com.example.constraints.SharedConstraints.MIN_CONTENT_LENGTH;
@@ -40,7 +38,7 @@ public class ContentBlock {
 
     @Nullable
     @Size(min = MIN_CONTENT_LENGTH, max = MAX_CONTENT_LENGTH)
-    @Searchable
+    @Indexed
     String content;
 
     public ContentBlock(ContentType type) {

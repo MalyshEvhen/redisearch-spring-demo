@@ -23,6 +23,8 @@ public record ArticlePostRequest(
         @Size(min = MIN_TITLE_LENGTH, max = MAX_TITLE_LENGTH)
         String title,
 
+        String description,
+
         @NotNull
         @Valid
         List<ContentBlockDto> content,

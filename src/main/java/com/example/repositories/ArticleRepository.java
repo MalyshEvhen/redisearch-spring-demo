@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface ArticleRepository extends RedisDocumentRepository<Article, String> {
     Page<Article> findByAuthor_Id(String id, Pageable pageable);
-    Iterable<Article> search(String text);
+    Iterable<Article> search(String text1);
     List<Suggestion> autoCompleteTitle(String query, AutoCompleteOptions options);
 }

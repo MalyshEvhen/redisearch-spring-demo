@@ -33,7 +33,8 @@ public class FakeDataGenerator {
     public static Article createArticle(User user) {
         var title = getArticleTitle();
         var content = getContent();
-        var article = Article.of(title, content, user);
+        var description = getRandomText();
+        var article = Article.of(title, description, content, user);
 
         int counter = ThreadLocalRandom.current().nextInt(5);
         while (counter >= 0) {
@@ -46,10 +47,11 @@ public class FakeDataGenerator {
 
     public static Event createEvent(Set<User> artists) {
         var title = getEventTitle();
+        var description = getRandomText();
         var content = getContent();
         var begin = getFutureDate(LocalDate.now());
         var end = getFutureDate(begin);
-        var event = Event.of(title, content, begin, end);
+        var event = Event.of(title, description, content, begin, end);
 
         int counter = ThreadLocalRandom.current().nextInt(5);
         while (counter >= 0) {

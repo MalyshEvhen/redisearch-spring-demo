@@ -1,19 +1,14 @@
 package com.example.domain.dto;
 
-import com.example.domain.models.content.ContentBlock;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.List;
 import java.util.Set;
 
-import static com.example.constraints.SharedConstraints.MAX_CONTENT_LENGTH;
 import static com.example.constraints.SharedConstraints.MAX_TITLE_LENGTH;
-import static com.example.constraints.SharedConstraints.MIN_CONTENT_LENGTH;
 import static com.example.constraints.SharedConstraints.MIN_TITLE_LENGTH;
 
 public record ArticlePostRequest(

@@ -1,7 +1,6 @@
 package com.example.controllers;
 
 import com.example.domain.dto.EventPostRequest;
-import com.example.domain.models.Article;
 import com.example.domain.models.Event;
 import com.example.service.EventService;
 import io.swagger.v3.oas.annotations.Operation;

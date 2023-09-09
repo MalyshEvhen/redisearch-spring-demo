@@ -22,16 +22,6 @@ public class SearchController {
 
     private final SearchService searchService;
 
-    @Operation(summary = "Endpoint for autocompletion search")
-    @ApiResponse(
-            responseCode = "200",
-            description = "List of suggestions was retrieved," +
-                    " or empty list ,if it is no suggestions.")
-    @GetMapping("/autocomplete/{q}")
-    List<Suggestion> autocomplete(@PathVariable("q") String query) {
-        return searchService.autocomplete(query);
-    }
-
     @Operation(summary = "Endpoint for text search")
     @ApiResponse(
             responseCode = "200",

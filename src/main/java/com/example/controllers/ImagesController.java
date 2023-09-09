@@ -1,7 +1,5 @@
 package com.example.controllers;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,11 +15,9 @@ import com.example.service.StorageService;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-
-import java.io.IOException;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/image")
@@ -36,12 +32,10 @@ public class ImagesController {
                     responseCode = "200",
                     description = "Successfully retrieved JPEG image",
                     content = @Content(
-                            mediaType = "image/jpeg",
-                            schema = @Schema(implementation = byte[].class)))})
+                            mediaType = "image/jpeg"))})
     @GetMapping(value = "/{filename}", produces = MediaType.IMAGE_JPEG_VALUE)
-    byte[] getImage(@PathVariable("filename") String filename) throws IOException {
-        Resource resource = storageService.loadAsResource(filename);
-        return resource.getContentAsByteArray();
+    byte[] getImage(@PathVariable("filename") String filename) {
+        return storageService.loadAsResource(filename);
     }
 
     @Operation(summary = "Save JPEG image")
@@ -51,7 +45,7 @@ public class ImagesController {
                     description = "Successfully saved JPEG image")})
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    void handleFileUpload(@RequestParam("file") final MultipartFile file) {
-        storageService.store(file);
+    String saveImage(@RequestParam("file") final MultipartFile file) {
+        return storageService.store(file);
     }
 }

@@ -110,10 +110,4 @@ public class EventController {
     Event save(@RequestBody EventPostRequest event) {
         return eventService.save(event);
     }
-
-
-    @GetMapping("/search/{q}")
-    Iterable<Event> search(@PathVariable("q") String query) {
-        return eventService.search(query);
-    }
 }

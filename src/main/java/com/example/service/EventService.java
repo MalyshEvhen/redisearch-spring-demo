@@ -14,7 +14,6 @@ import java.util.List;
 
 public interface EventService {
     List<Event> searchByBeginDateBetween(@NotNull LocalDate start, @NotNull LocalDate end);
-    Iterable<Event> search(@NotNull @NotBlank String text);
     Iterable<Event> findByTags(@NotEmpty String[] tags);
     Event save(@NotNull @Valid EventPostRequest event);
     Event findById(@NotNull String id);

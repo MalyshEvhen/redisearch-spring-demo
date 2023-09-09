@@ -2,14 +2,12 @@ package com.example.service.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
-import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileSystemUtils;
@@ -23,6 +21,7 @@ import com.example.service.StorageService;
 @Service
 public class FileSystemStorageService implements StorageService {
 
+
     private final Path rootLocation;
 
     public FileSystemStorageService(final StorageProperties properties) {
@@ -30,7 +29,7 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public void store(final MultipartFile file) {
+    public String store(final MultipartFile file) {
         String name = file.getOriginalFilename();
         try {
             if (file.isEmpty()) {
@@ -47,6 +46,8 @@ public class FileSystemStorageService implements StorageService {
                 Files.copy(inputStream,
                         destinationFile,
                         StandardCopyOption.REPLACE_EXISTING);
+                
+                return destinationFile.toString();
             }
         } catch (IOException e) {
             throw new StorageException("Failed to store file.", e);
@@ -73,19 +74,18 @@ public class FileSystemStorageService implements StorageService {
     }
 
     @Override
-    public Resource loadAsResource(final String filename) {
+    public byte[] loadAsResource(final String filename) {
         try {
             var file = load(filename);
             var resource = new UrlResource(file.toUri());
 
             if (resource.exists() || resource.isReadable()) {
-                return resource;
+                return resource.getContentAsByteArray();
             } else {
                 throw new StorageFileNotFoundException(
                         "Could not read file: " + filename);
-
             }
-        } catch (MalformedURLException e) {
+        } catch (IOException e) {
             throw new StorageFileNotFoundException("Could not read file: " + filename, e);
         }
     }

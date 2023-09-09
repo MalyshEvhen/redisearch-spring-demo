@@ -34,11 +34,6 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public Iterable<Event> search(String text) {
-        return eventRepository.search(text);
-    }
-
-    @Override
     public List<Event> findByTags(String... tags) {
         return entityStream.of(Event.class)
                 .filter(Event$.TAGS.in(tags))

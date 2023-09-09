@@ -40,11 +40,7 @@ public class ContentBlock {
     @Size(min = MIN_CONTENT_LENGTH, max = MAX_CONTENT_LENGTH)
     @Indexed
     String content;
-
-    public ContentBlock(ContentType type) {
-        this.type = type.getValue();
-    }
-
+    
     @Getter
     public enum ContentType {
         TEXT("text"),

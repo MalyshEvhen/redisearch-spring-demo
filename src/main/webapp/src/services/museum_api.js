@@ -15,7 +15,7 @@ MuseumAPI.getSuggestions = async function (query) {
     redirect: 'follow'
   };
 
-  let actionUrl = `${BASE_URL}/api/search/autocomplete/${encodeURIComponent(query)}`;
+  let actionUrl = `${BASE_URL}/api/search/${encodeURIComponent(query)}`;
 
   const response = await fetch(actionUrl, requestOptions);
 
